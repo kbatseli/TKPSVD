@@ -75,7 +75,7 @@ for i=1:length(r)-1           % outer loop over the levels
             Slevel=[Slevel;zeros(min([n(i+1),prod(n(i+2:end))]),1)];
         end
         counter=counter+1;
-        if rem(j,length(S{whichvcounter}))==0
+        if rem(j,n(i))==0
             whichvcounter =  whichvcounter+1;
         end
     end
