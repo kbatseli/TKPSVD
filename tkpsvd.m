@@ -44,7 +44,7 @@ permutedI(1:2:end)=1:d/2;
 permutedI(2:2:end)=d/2+1:d;
 A=permute(A,permutedI);
 
-n=size(A);
+n=noe(permutedI);
 n2=zeros(1,d/2);
 for i=1:d/2
     n2(i)=prod(n((i-1)*2+1:i*2));
