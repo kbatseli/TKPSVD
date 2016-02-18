@@ -22,34 +22,39 @@ function [B,sigmas]=tkpsvd(A,n,varargin)
 % Reference
 % ---------
 %
-% A constructive arbitrary-degree Kronecker product decomposition of matrices
+% A constructive arbitrary-degree Kronecker product decomposition of
+% tensors
+% http://arxiv.org/abs/1317261
 %
-% 2015, Kim Batselier, Ngai Wong
+% 2015-2016, Kim Batselier, Ngai Wong
 
-% n contains the dimensions of the even order tensor n = [n1 n2 n3 ... nd]
-d=length(n);
-if mod(d,2)~=0
-    error('Kronecker Product SVD only works for even order tensors')
+dim=size(A);
+d=length(dim);
+numfac=length(n)/d;
+if rem(length(n),d) ~=0
+    error('Not all factors have the same order.')
 end
 
-% reshape matrix A into a d-way tensor
-io=1:2:d;   % odd indices
-ie=2:2:d;   % even indices   
-noe=[n(io) n(ie)];
+% first reshape A into a length(n)-way tensor
+noe=[];
+for i=1:d
+    noe=[noe n(i:d:length(n))];
+end
 A=reshape(A,noe);
 
 % permute A
-permutedI=zeros(1,d);
-permutedI(1:2:end)=1:d/2;
-permutedI(2:2:end)=d/2+1:d;
+permutedI=zeros(1,length(n));
+for i=1:numfac
+    permutedI((i-1)*d+1:i*d)=i:numfac:d*numfac;
+end
 A=permute(A,permutedI);
 
+% reshape A back into a numfac-way tensor
 n=noe(permutedI);
-n2=zeros(1,d/2);
-for i=1:d/2
-    n2(i)=prod(n((i-1)*2+1:i*2));
+n2=zeros(1,length(n)/d);
+for i=1:length(n)/d
+    n2(i)=prod(n((i-1)*d+1:i*d));
 end
-% reshape A into a d/2-way tensor
 A=reshape(A,n2);
 
 if ~isempty(varargin)
@@ -69,9 +74,9 @@ if ~isempty(varargin)
 else
      Uhat=UV2Uhat(U,V,I,n2);
 end
-for j=1:d/2
+for j=1:numfac
     for i=1:size(Uhat{1},2)        
-        B{j,i}=reshape(Uhat{j}(:,i),n((j-1)*2+1:j*2));
+        B{j,i}=reshape(Uhat{j}(:,i),n((j-1)*d+1:j*d));
     end
 end
 

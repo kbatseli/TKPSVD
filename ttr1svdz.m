@@ -1,4 +1,4 @@
-function [U,S,V,sigmas]=ttr1svd(A)
+function [U,S,V,sigmas]=ttr1svdz(A)
 % [U,S,V,sigmas]=ttr1svd(A)
 % -------------------------
 % Tensor Train rank-1 singular value decomposition. Decomposes an arbitrary tensor A into
