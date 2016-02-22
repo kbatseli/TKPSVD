@@ -21,9 +21,9 @@ d2=length(n2);
 % append with ones if the dimensions are not the same (due to Matlab's
 % removal of trailing ones in the dimension)
 if d1 > d2
-    d2=[d2 ones(1,d1-d2)];
+    n2=[n2 ones(1,d1-d2)];
 elseif d2 > d1
-    d1=[d1 ones(1,d2-d1)];
+    n1=[n1 ones(1,d2-d1)];
 end
 
 c=kron(A(:),B(:)); %compute all entries
@@ -32,4 +32,4 @@ permI=[];
 for i=1:d1
     permI=[permI i i+d1];
 end
-C=reshape(permute(reshape(c,[n2 n1]),[1 6 2 7 3 8 4 9 5 10]),n1.*n2);
+C=reshape(permute(reshape(c,[n2 n1]),permI),n1.*n2);
