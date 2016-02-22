@@ -29,7 +29,7 @@ end
 c=kron(A(:),B(:)); %compute all entries
 % now reshape the vector into the desired tensor
 permI=[];
-for i=1:d1
-    permI=[permI i i+d1];
+for i=1:max(d1,d2)
+    permI=[permI i i+max(d1,d2)];
 end
 C=reshape(permute(reshape(c,[n2 n1]),permI),n1.*n2);
