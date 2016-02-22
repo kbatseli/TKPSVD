@@ -18,6 +18,6 @@ Small demo that illustrates the use of most functions in this pacakge.
 2. Reference
 ------------
 
-"% A constructive arbitrary-degree Kronecker product decomposition of tensors"
+"A constructive arbitrary-degree Kronecker product decomposition of tensors"
 
 Authors: Kim Batselier, Ngai Wong
