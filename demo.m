@@ -1,5 +1,19 @@
 %% small demo to illustrate the use of tkpsvd.m
 
+%% centrosymmetric 4-way tensor
+clear all;
+a=[1:(9*16*4*4)/2 (9*16*4*4)/2:-1:1];
+A=reshape(a,[9 16 4 4]);
+[Aij,s]=tkpsvd(A,[3 4 2 2 3 4 2 2]);
+% all sigmas are distinct, therefore all factors are (skew)-centrosymmetric
+s
+% inspect centrosymmetry of all factors
+norm(fliplr(Aij{1,1}(:))-Aij{1,1}(:))
+norm(fliplr(Aij{2,1}(:))-Aij{2,1}(:))
+norm(fliplr(Aij{1,2}(:))-Aij{1,2}(:))
+norm(fliplr(Aij{2,2}(:))-Aij{2,2}(:))
+
+
 %% hankel square matrix degree-3 example 
 clear all;
 clc;

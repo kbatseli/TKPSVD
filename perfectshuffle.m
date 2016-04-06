@@ -1,25 +1,25 @@
-function S = perfectshuffle(p,q)
-% S = perfectshuffle(p,q)
+function S = perfectshuffle(d,n)
+% S = perfectshuffle(d,n)
 % -------------------------
-% Constructs the pq-by-pq perfect shuffle matrix S for a p-by-q matrix A.
+% Constructs the n^d-by-n^d perfect shuffle matrix S that characterizes a d-way 
+% symmetric tensor A of dimenions n.
 %
 % S         =   perfect shuffle matrix,
 %
-% p         =   scalar, number of rows of A,
+% d         =   scalar, order of the symmetric tensor A,
 %
-% q         =   scalar, number of columns of A.
+% n         =   scalar, dimension of each of the modes of A.
 %
 % Reference
 % ---------
 %
-% A constructive arbitrary-degree Kronecker product decomposition of matrices
+% A constructive arbitrary-degree Kronecker product decomposition of tensors
 % http://arxiv.org/abs/1317261
 %
 % 2015, Kim Batselier, Ngai Wong
 
-r=p*q;
-I=eye(r);
-S=[];
-for i=1:q
-   S=[S; I(i:q:r,:)];
+I=eye(n^d);
+S=zeros(n^d,n^d);
+for i=1:n^(d-1)
+   S((i-1)*n+1:i*n,:)=I(i:n^(d-1):n^d,:);
 end
