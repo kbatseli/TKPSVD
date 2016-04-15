@@ -2,19 +2,21 @@ function [B,sigmas]=tkpsvd(A,n,varargin)
 % [B,sigmas]=tkpsvd(A,n) or [B,sigmas]=tkpsvd(A,n,R)
 % --------------------------------------------------
 % Tensor-based Kronecker Product Singular Value Decomposition. Decomposes
-% an arbitrary real matrix A into a linear combination of Kronecker
-% products as A= \sum_{j=1}^R \sigmas_j A^{dj} \otimes ... \otimes A^{1j}. 
+% an arbitrary real k-way tensor A into a linear combination of Kronecker
+% products as A= \sum_{j=1}^R \sigmas_j A^{dj} \otimes ... \otimes A^{1j},
+% with all factors A^{ij} k-way tensors. 
 %
 % B         =   cell, B{i,j} contains the A^{ij} factor in the TKPSVD,
 %
 % sigmas    =   vector, contains the coefficients in the linear combination
 %               of Kronecker products,
 %
-% A         =   matrix,
+% A         =   tensor,
 %
 % n         =   vector, contains the dimension of each of the Kronecker 
-%               as [m_1 n_1 m_2 n_2 .... m_d n_d] with A^{ij} an m_i-by-n_i
-%               matrix,
+%               product factors, e.g. decomposition of a 3-way tensor
+% 				into a Kronecker product of 2x2x2 with a 3x2x1 factors is
+%				specified by n=[3 2 1 2 2 2].
 %
 % R         =   scalar, desired number of terms when calling the sparse
 %               version of TTR1SVD.
